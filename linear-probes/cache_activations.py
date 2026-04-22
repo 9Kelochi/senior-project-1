@@ -21,8 +21,14 @@ def main(dataset_name: str):
 
     if load_models:
         tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
-        model = AutoModelForCausalLM.from_pretrained(model_name, trust_remote_code=True, device_map="auto", torch_dtype=t.bfloat16)
-        device = model.device
+        model = AutoModelForCausalLM.from_pretrained(
+            model_name,
+            trust_remote_code=True,
+            torch_dtype=t.float16
+        )
+
+        device = "cpu"
+        model = model.to(device)
     else:
         model, tokenizer, device = None, None, 'cpu'
 

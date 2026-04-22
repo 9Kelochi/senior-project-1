@@ -32,15 +32,25 @@ config_phi4: Dict[str, Any] = {
 }
 
 config_llama3: Dict[str, Any] = {
-    "short_name": "llama3",
-    "model_name": "meta-llama/Llama-3.3-70B-Instruct",
-    "activation_size": 8192,
-    "seq_len": 131072,
-    "hook_component": "model.layers[40].mlp",
+    "short_name": "qwen",
+    "model_name": "Qwen/Qwen2.5-1.5B-Instruct",
+
+    # Qwen2.5-1.5B specs
+    "activation_size": 2048,
+    "seq_len": 32768,
+
+    # IMPORTANT: correct hook location
+    "hook_component": "model.layers[12].mlp",
+
+    # Optional but recommended (match phi/llama style)
+    "layer": 12,
+    "num_layers": 24,
+
     "test_split": 0.2,
     "batch_size": 32,
     "learning_rate": 0.001,
-    "expt_name": "2025-02-01_llama_llama_100_games_v3",
+
+    "expt_name": "qwen_probe_test",
     "probe_training_epochs": 4,
     "probe_training_batch_size": 32,
     "probe_training_learning_rate": 0.001,

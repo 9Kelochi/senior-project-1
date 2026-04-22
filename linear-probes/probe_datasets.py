@@ -21,6 +21,10 @@ def llama3_format(system, user, assistant):
     assistant_part = f"<|start_header_id|>assistant<|end_header_id|>{assistant}" if assistant else "<|start_header_id|>assistant<|end_header_id|>"
     return f"{system_part}{user_part}{assistant_part}"
 
+# Qwen uses the same conversational markers as the Llama3-style formatting
+def qwen_format(system, user, assistant):
+    return llama3_format(system, user, assistant)
+
 class ActivationCache:
     def __init__(self, model, tokenizer, device):
         self.model = model
